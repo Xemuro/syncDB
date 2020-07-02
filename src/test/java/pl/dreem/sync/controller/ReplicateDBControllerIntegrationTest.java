@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import pl.dreem.sync.controller.request.NewAlertRequest;
 import pl.dreem.sync.controller.request.UpdateAlertRequest;
@@ -27,6 +28,7 @@ import static org.hamcrest.core.IsNull.notNullValue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class ReplicateDBControllerIntegrationTest {
 
     @LocalServerPort
@@ -39,7 +41,7 @@ public class ReplicateDBControllerIntegrationTest {
     private SourceDBConnectionMock sourceConnectionMock;
 
     @Autowired
-    private SourceDBService service;
+    private SourceDBService sourceService;
 
     @Test
     public void newAlarmShouldBeReplicatedIn5sec() {
