@@ -24,7 +24,7 @@ public final class SyncResult {
 
     public Instant getNextSyncCriteria() {
         final Duration durationOfSync = Duration.between(syncStarted, fetchFinished);
-        return syncStarted.plus(durationOfSync);
+        return syncStarted.plus(durationOfSync).minus(Duration.ofMillis(500));
     }
 
     public static SyncResult from(final Instant syncStarted, final Instant fetchFinished){
